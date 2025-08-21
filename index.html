@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia Interativo: Segredos para Velas Perfeitas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            color: #764ba2;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            color: #666;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .calculator-section, .guide-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            color: #764ba2;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .form-group select, .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group select:focus, .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .calculate-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            width: 100%;
+        }
+
+        .calculate-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            border-radius: 10px;
+            border-left: 5px solid #667eea;
+        }
+
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+            background: #f5f5f5;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 15px;
+            background: #f5f5f5;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .tab.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .tip-card {
+            background: #fff;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .tip-card h4 {
+            color: #764ba2;
+            margin-bottom: 10px;
+        }
+
+        .temperature-guide {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .temperature-guide h4 {
+            color: #2d3436;
+            margin-bottom: 15px;
+        }
+
+        .temp-item {
+            margin: 10px 0;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 5px;
+        }
+
+        .problems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .problem-card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            border-top: 4px solid #e74c3c;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .problem-card h4 {
+            color: #e74c3c;
+            margin-bottom: 10px;
+        }
+
+        .solution {
+            background: #d4edda;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            border-left: 3px solid #28a745;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .tabs {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🕯️ Guia Interativo: Segredos para Velas Perfeitas</h1>
+            <p>Baseado no guia "Como Garantir Que Suas Velas Tenham um Desempenho Impecável"</p>
+        </div>
+
+        <div class="main-content">
+            <div class="calculator-section">
+                <h2 class="section-title">🧮 Calculadora de Tempo de Queima</h2>
+                <div class="form-group">
+                    <label for="waxType">Tipo de Cera:</label>
+                    <select id="waxType" onchange="updateTemperatures()">
+                        <option value="soja">Cera de Soja</option>
+                        <option value="parafina">Parafina</option>
+                        <option value="coco">Cera de Coco</option>
+                        <option value="abelha">Cera de Abelha</option>
+                        <option value="palma">Cera de Palma</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="diameter">Diâmetro da Vela (cm):</label>
+                    <input type="number" id="diameter" min="3" max="15" value="7">
+                </div>
+
+                <div class="form-group">
+                    <label for="weight">Peso da Cera (gramas):</label>
+                    <input type="number" id="weight" min="50" max="1000" value="200">
+                </div>
+
+                <div class="form-group">
+                    <label for="wickType">Tipo de Pavio:</label>
+                    <select id="wickType">
+                        <option value="algodao-fino">Algodão Fino</option>
+                        <option value="algodao-trancado">Algodão Trançado</option>
+                        <option value="algodao-grosso">Algodão Grosso</option>
+                        <option value="madeira-fina">Madeira Fina</option>
+                        <option value="madeira-grossa">Madeira Grossa</option>
+                    </select>
+                </div>
+
+                <button class="calculate-btn" onclick="calculateBurnTime()">Calcular Tempo de Queima</button>
+
+                <div id="result" class="result" style="display: none;">
+                    <h3>Resultado:</h3>
+                    <p id="burnTime"></p>
+                    <p id="recommendation"></p>
+                </div>
+            </div>
+
+            <div class="guide-section">
+                <h2 class="section-title">📚 Guia Técnico</h2>
+                <div class="tabs">
+                    <button class="tab active" onclick="showTab('temperatures')">Temperaturas</button>
+                    <button class="tab" onclick="showTab('problems')">Problemas</button>
+                    <button class="tab" onclick="showTab('tips')">Dicas</button>
+                </div>
+
+                <div id="temperatures" class="tab-content active">
+                    <div class="temperature-guide">
+                        <h4>🌡️ Temperaturas Ideais para <span id="selectedWaxType">Cera de Soja</span></h4>
+                        <div class="temp-item">
+                            <strong>Derretimento da Cera:</strong> <span id="meltingTemp">50°C - 55°C</span>
+                        </div>
+                        <div class="temp-item">
+                            <strong>Adição de Fragrância:</strong> <span id="fragranceTemp">65°C - 70°C</span>
+                        </div>
+                        <div class="temp-item">
+                            <strong>Resfriamento para Despejo:</strong> <span id="pouringTemp">55°C</span>
+                        </div>
+                    </div>
+
+                    <div class="tip-card">
+                        <h4>💡 Dica Importante</h4>
+                        <p>Use sempre um termômetro de cozinha para monitorar as temperaturas. Isso evita que a cera ou os óleos sejam danificados pelo calor excessivo.</p>
+                    </div>
+                </div>
+
+                <div id="problems" class="tab-content">
+                    <div class="problems-grid">
+                        <div class="problem-card">
+                            <h4>🕳️ Túnel na Vela</h4>
+                            <p><strong>Causa:</strong> Pavio muito pequeno para o diâmetro</p>
+                            <div class="solution">
+                                <strong>Solução:</strong> Use pavio maior ou múltiplos pavios para diâmetros > 8cm
+                            </div>
+                        </div>
+
+                        <div class="problem-card">
+                            <h4>💨 Fumaça Negra</h4>
+                            <p><strong>Causa:</strong> Pavio muito longo ou excesso de fragrância</p>
+                            <div class="solution">
+                                <strong>Solução:</strong> Mantenha pavio em 0,5cm e limite fragrância a 6-10%
+                            </div>
+                        </div>
+
+                        <div class="problem-card">
+                            <h4>🔥 Queima Muito Rápida</h4>
+                            <p><strong>Causa:</strong> Pavio muito grosso ou ventilação excessiva</p>
+                            <div class="solution">
+                                <strong>Solução:</strong> Use pavio menor e evite correntes de ar
+                            </div>
+                        </div>
+
+                        <div class="problem-card">
+                            <h4>🌬️ Chama Instável</h4>
+                            <p><strong>Causa:</strong> Correntes de ar ou pavio inadequado</p>
+                            <div class="solution">
+                                <strong>Solução:</strong> Posicione em local protegido e ajuste o pavio
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tips" class="tab-content">
+                    <div class="tip-card">
+                        <h4>🕯️ Primeira Queima</h4>
+                        <p>A primeira queima deve durar tempo suficiente para que toda a superfície derreta até as bordas. Isso cria uma "memória" para a cera.</p>
+                    </div>
+
+                    <div class="tip-card">
+                        <h4>⏰ Tempo de Cura</h4>
+                        <p>Deixe suas velas descansarem por 7-14 dias antes de serem acesas. Isso permite melhor integração do aroma.</p>
+                    </div>
+
+                    <div class="tip-card">
+                        <h4>✂️ Manutenção do Pavio</h4>
+                        <p>Corte o pavio para 0,5cm antes de cada queima. Isso controla o tamanho da chama e reduz fuligem.</p>
+                    </div>
+
+                    <div class="tip-card">
+                        <h4>🧪 Teste Sempre</h4>
+                        <p>Realize testes com diferentes tamanhos de pavios antes de produzir em grande quantidade.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function calculateBurnTime() {
+            const waxType = document.getElementById('waxType').value;
+            const diameter = parseFloat(document.getElementById('diameter').value);
+            const weight = parseFloat(document.getElementById('weight').value);
+            const wickType = document.getElementById('wickType').value;
+
+            // Taxas de queima baseadas no PDF (gramas por hora)
+            const burnRates = {
+                'soja': { base: 4, modifier: 1.0 },
+                'parafina': { base: 5, modifier: 1.2 },
+                'coco': { base: 3, modifier: 0.8 },
+                'abelha': { base: 4, modifier: 0.9 },
+                'palma': { base: 4.2, modifier: 1.05 }
+            };
+
+            const wickModifiers = {
+                'algodao-fino': 0.8,
+                'algodao-trancado': 1.0,
+                'algodao-grosso': 1.2,
+                'madeira-fina': 0.9,
+                'madeira-grossa': 1.3
+            };
+
+            // Ajuste baseado no diâmetro
+            const diameterModifier = diameter > 10 ? 1.3 : diameter > 7 ? 1.1 : diameter < 5 ? 0.8 : 1.0;
+
+            const baseRate = burnRates[waxType].base;
+            const finalRate = baseRate * burnRates[waxType].modifier * wickModifiers[wickType] * diameterModifier;
+
+            const burnTimeHours = Math.round(weight / finalRate);
+
+            let recommendation = '';
+            
+            // Verificações mais específicas para recomendações
+            if (diameter > 10) {
+                if (wickType.includes('fino') || wickType === 'algodao-trancado') {
+                    recommendation = '⚠️ Recomendação: Para diâmetros maiores que 10cm, use pavios duplos ou madeira grossa para evitar túneis.';
+                } else {
+                    recommendation = '✅ Boa combinação para velas grandes!';
+                }
+            } else if (diameter > 8) {
+                if (wickType.includes('fino')) {
+                    recommendation = '⚠️ Recomendação: Para diâmetros entre 8-10cm, considere pavios mais grossos para queima uniforme.';
+                } else {
+                    recommendation = '✅ Combinação adequada para velas médias!';
+                }
+            } else if (diameter < 5) {
+                if (wickType.includes('grosso') || wickType === 'madeira-grossa') {
+                    recommendation = '⚠️ Recomendação: Para diâmetros menores que 5cm, pavios finos são mais adequados para evitar queima rápida.';
+                } else {
+                    recommendation = '✅ Perfeito para velas pequenas!';
+                }
+            } else if (diameter >= 5 && diameter <= 8) {
+                if ((waxType === 'coco' || waxType === 'abelha') && wickType.includes('grosso')) {
+                    recommendation = '⚠️ Atenção: Ceras densas com pavios grossos podem queimar muito rápido neste diâmetro.';
+                } else if (waxType === 'parafina' && wickType.includes('fino')) {
+                    recommendation = '⚠️ Dica: Parafina com pavios muito finos pode formar túneis. Considere pavio trançado.';
+                } else {
+                    recommendation = '✅ Excelente combinação para velas de tamanho médio!';
+                }
+            }
+
+            // Verificações adicionais por tipo de cera
+            if (waxType === 'palma' && !wickType.includes('trancado') && !wickType.includes('grosso')) {
+                recommendation += ' 💡 Dica extra: Cera de palma funciona melhor com pavios trançados.';
+            }
+
+            document.getElementById('burnTime').textContent = `Tempo estimado de queima: ${burnTimeHours} horas`;
+            document.getElementById('recommendation').textContent = recommendation;
+            document.getElementById('result').style.display = 'block';
+        }
+
+        function updateTemperatures() {
+            const waxType = document.getElementById('waxType').value;
+            
+            const temperatureData = {
+                'soja': {
+                    name: 'Cera de Soja',
+                    melting: '50°C - 55°C',
+                    fragrance: '65°C - 70°C',
+                    pouring: '55°C'
+                },
+                'parafina': {
+                    name: 'Parafina',
+                    melting: '55°C - 65°C',
+                    fragrance: '65°C - 70°C',
+                    pouring: '55°C - 60°C'
+                },
+                'coco': {
+                    name: 'Cera de Coco',
+                    melting: '40°C - 50°C',
+                    fragrance: '60°C - 65°C',
+                    pouring: '50°C'
+                },
+                'abelha': {
+                    name: 'Cera de Abelha',
+                    melting: '60°C - 65°C',
+                    fragrance: '70°C - 75°C',
+                    pouring: '65°C'
+                },
+                'palma': {
+                    name: 'Cera de Palma',
+                    melting: '58°C - 63°C',
+                    fragrance: '68°C - 73°C',
+                    pouring: '60°C'
+                }
+            };
+
+            const data = temperatureData[waxType];
+            document.getElementById('selectedWaxType').textContent = data.name;
+            document.getElementById('meltingTemp').textContent = data.melting;
+            document.getElementById('fragranceTemp').textContent = data.fragrance;
+            document.getElementById('pouringTemp').textContent = data.pouring;
+        }
+
+        function showTab(tabName) {
+            // Hide all tab contents
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+
+            // Remove active class from all tabs
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+
+            // Show selected tab content and mark tab as active
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Initialize with default calculation and temperature display
+        window.addEventListener('load', function() {
+            updateTemperatures();
+            calculateBurnTime();
+        });
+    </script>
+</body>
+</html>
